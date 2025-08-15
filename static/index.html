@@ -298,6 +298,7 @@
             <div class="input-group">
                 <label for="investor-type">Type</label>
                 <select id="investor-type" required>
+                    <option value="">Select investor type</option>
                     <option value="VC">Venture Capital (VC)</option>
                     <option value="Angel">Angel Investor</option>
                     <option value="Corporate">Corporate VC</option>
@@ -308,6 +309,7 @@
             <div class="input-group">
                 <label for="investor-location">Location</label>
                 <select id="investor-location" required>
+                    <option value="">Select location</option>
                     <option value="USA">United States</option>
                     <option value="UK">United Kingdom</option>
                     <option value="India">India</option>
@@ -321,10 +323,11 @@
             <div class="input-group">
                 <label for="avg-check-size">Average Check Size ($)</label>
                 <select id="avg-check-size" required>
+                    <option value="">Select check size</option>
                     <option value="100000">$100K</option>
                     <option value="250000">$250K</option>
                     <option value="500000">$500K</option>
-                    <option value="1000000" selected>$1M</option>
+                    <option value="1000000">$1M</option>
                     <option value="2000000">$2M</option>
                     <option value="5000000">$5M</option>
                     <option value="10000000">$10M+</option>
@@ -334,8 +337,9 @@
             <div class="input-group">
                 <label for="min-roi">Minimum ROI (%)</label>
                 <select id="min-roi" required>
+                    <option value="">Select minimum ROI</option>
                     <option value="2">2x</option>
-                    <option value="3" selected>3x</option>
+                    <option value="3">3x</option>
                     <option value="5">5x</option>
                     <option value="7">7x</option>
                     <option value="10">10x</option>
@@ -346,10 +350,11 @@
             <div class="input-group">
                 <label for="risk-appetite">Risk Appetite</label>
                 <select id="risk-appetite" required>
+                    <option value="">Select risk level</option>
                     <option value="1">Very Conservative</option>
                     <option value="2">Conservative</option>
                     <option value="3">Moderate</option>
-                    <option value="4" selected>Aggressive</option>
+                    <option value="4">Aggressive</option>
                     <option value="5">Very Aggressive</option>
                 </select>
             </div>
@@ -357,9 +362,10 @@
             <div class="input-group">
                 <label for="years-active">Years Active</label>
                 <select id="years-active" required>
+                    <option value="">Select years active</option>
                     <option value="1">1-2 years</option>
                     <option value="3">3-4 years</option>
-                    <option value="5" selected>5-7 years</option>
+                    <option value="5">5-7 years</option>
                     <option value="8">8-10 years</option>
                     <option value="10">10+ years</option>
                 </select>
@@ -368,9 +374,10 @@
             <div class="input-group">
                 <label for="total-investments">Total Investments</label>
                 <select id="total-investments" required>
+                    <option value="">Select total investments</option>
                     <option value="5">1-5</option>
                     <option value="10">6-10</option>
-                    <option value="20" selected>11-20</option>
+                    <option value="20">11-20</option>
                     <option value="50">21-50</option>
                     <option value="100">50+</option>
                 </select>
@@ -379,8 +386,8 @@
             <div class="input-group" style="grid-column: span 2;">
                 <label for="preferred-sectors">Preferred Sectors (Multiple Selection)</label>
                 <select id="preferred-sectors" multiple required style="height: 120px;">
-                    <option value="Tech" selected>Technology</option>
-                    <option value="AI/ML" selected>AI/ML</option>
+                    <option value="Tech">Technology</option>
+                    <option value="AI/ML">AI/ML</option>
                     <option value="Fintech">Fintech</option>
                     <option value="Healthcare">Healthcare</option>
                     <option value="Consumer">Consumer</option>
@@ -393,8 +400,8 @@
                 <label for="preferred-stages">Preferred Stages (Multiple Selection)</label>
                 <select id="preferred-stages" multiple required style="height: 120px;">
                     <option value="Pre-seed">Pre-seed</option>
-                    <option value="Seed" selected>Seed</option>
-                    <option value="Series A" selected>Series A</option>
+                    <option value="Seed">Seed</option>
+                    <option value="Series A">Series A</option>
                     <option value="Series B">Series B</option>
                     <option value="Growth">Growth</option>
                 </select>
@@ -402,7 +409,7 @@
 
             <div class="input-group" style="grid-column: 1 / -1;">
                 <label for="thesis">Investment Thesis</label>
-                <textarea id="thesis" placeholder="e.g., Focus on AI startups...">Focusing on early-stage technology companies with strong AI/ML capabilities</textarea>
+                <textarea id="thesis" placeholder="Describe your investment strategy and focus areas..." required></textarea>
             </div>
         </div>
     </div>
@@ -413,7 +420,8 @@
             <div class="input-group">
                 <label for="sector">Sector</label>
                 <select id="sector" required>
-                    <option value="Tech" selected>Technology</option>
+                    <option value="">Select sector</option>
+                    <option value="Tech">Technology</option>
                     <option value="AI/ML">AI/ML</option>
                     <option value="Fintech">Fintech</option>
                     <option value="Healthcare">Healthcare</option>
@@ -426,8 +434,9 @@
             <div class="input-group">
                 <label for="stage">Stage</label>
                 <select id="stage" required>
+                    <option value="">Select stage</option>
                     <option value="Pre-seed">Pre-seed</option>
-                    <option value="Seed" selected>Seed</option>
+                    <option value="Seed">Seed</option>
                     <option value="Series A">Series A</option>
                     <option value="Series B">Series B</option>
                     <option value="Growth">Growth</option>
@@ -437,7 +446,8 @@
             <div class="input-group">
                 <label for="startup-location">Location</label>
                 <select id="startup-location" required>
-                    <option value="USA" selected>United States</option>
+                    <option value="">Select location</option>
+                    <option value="USA">United States</option>
                     <option value="UK">United Kingdom</option>
                     <option value="India">India</option>
                     <option value="Singapore">Singapore</option>
@@ -449,14 +459,15 @@
 
             <div class="input-group">
                 <label for="founding-date">Founding Date</label>
-                <input type="date" id="founding-date" value="2023-01-01" required>
+                <input type="date" id="founding-date" required>
             </div>
 
             <div class="input-group">
                 <label for="employees">Number of Employees</label>
                 <select id="employees" required>
+                    <option value="">Select employee range</option>
                     <option value="5">1-5</option>
-                    <option value="10" selected>6-10</option>
+                    <option value="10">6-10</option>
                     <option value="25">11-25</option>
                     <option value="50">26-50</option>
                     <option value="100">51-100</option>
@@ -467,10 +478,11 @@
             <div class="input-group">
                 <label for="mrr">Monthly Recurring Revenue ($)</label>
                 <select id="mrr" required>
+                    <option value="">Select MRR</option>
                     <option value="0">Pre-revenue</option>
                     <option value="10000">$10K</option>
                     <option value="25000">$25K</option>
-                    <option value="50000" selected>$50K</option>
+                    <option value="50000">$50K</option>
                     <option value="100000">$100K</option>
                     <option value="250000">$250K</option>
                     <option value="500000">$500K+</option>
@@ -480,9 +492,10 @@
             <div class="input-group">
                 <label for="growth-rate">Monthly Growth Rate (%)</label>
                 <select id="growth-rate" required>
+                    <option value="">Select growth rate</option>
                     <option value="5">1-5%</option>
                     <option value="10">6-10%</option>
-                    <option value="15" selected>11-15%</option>
+                    <option value="15">11-15%</option>
                     <option value="20">16-20%</option>
                     <option value="30">21-30%</option>
                     <option value="50">30%+</option>
@@ -492,10 +505,11 @@
             <div class="input-group">
                 <label for="burn-rate">Monthly Burn Rate ($)</label>
                 <select id="burn-rate" required>
+                    <option value="">Select burn rate</option>
                     <option value="10000">$10K</option>
                     <option value="25000">$25K</option>
                     <option value="50000">$50K</option>
-                    <option value="100000" selected>$100K</option>
+                    <option value="100000">$100K</option>
                     <option value="250000">$250K</option>
                     <option value="500000">$500K+</option>
                 </select>
@@ -504,10 +518,11 @@
             <div class="input-group">
                 <label for="funding-to-date">Total Funding to Date ($)</label>
                 <select id="funding-to-date" required>
+                    <option value="">Select total funding</option>
                     <option value="0">No funding</option>
                     <option value="100000">$100K</option>
                     <option value="250000">$250K</option>
-                    <option value="500000" selected>$500K</option>
+                    <option value="500000">$500K</option>
                     <option value="1000000">$1M</option>
                     <option value="5000000">$5M</option>
                     <option value="10000000">$10M+</option>
@@ -517,9 +532,10 @@
             <div class="input-group">
                 <label for="last-valuation">Last Valuation ($M)</label>
                 <select id="last-valuation" required>
+                    <option value="">Select valuation</option>
                     <option value="1">$1M</option>
                     <option value="3">$3M</option>
-                    <option value="5" selected>$5M</option>
+                    <option value="5">$5M</option>
                     <option value="10">$10M</option>
                     <option value="20">$20M</option>
                     <option value="50">$50M+</option>
@@ -528,7 +544,7 @@
 
             <div class="input-group" style="grid-column: 1 / -1;">
                 <label for="description">Company Description</label>
-                <textarea id="description" placeholder="e.g., Innovative AI startup...">AI-powered analytics platform for business intelligence</textarea>
+                <textarea id="description" placeholder="Describe your company's mission, product/service, and competitive advantage..." required></textarea>
             </div>
         </div>
     </div>
@@ -662,9 +678,41 @@
             resultDiv.innerHTML = '';
             resultDiv.className = '';
 
-            // Collect and validate data
-            const formData = collectFormData();
-            console.log('Form data:', formData);
+            // Get selected values from multiple selects
+            const selectedSectors = Array.from(document.getElementById('preferred-sectors').selectedOptions).map(opt => opt.value);
+            const selectedStages = Array.from(document.getElementById('preferred-stages').selectedOptions).map(opt => opt.value);
+
+            // Collect form data
+            const formData = {
+                investor: {
+                    type: document.getElementById('investor-type').value,
+                    location: document.getElementById('investor-location').value,
+                    avg_check_size: parseFloat(document.getElementById('avg-check-size').value),
+                    min_roi: parseFloat(document.getElementById('min-roi').value),
+                    risk_appetite: parseFloat(document.getElementById('risk-appetite').value),
+                    years_active: parseFloat(document.getElementById('years-active').value),
+                    total_investments: parseFloat(document.getElementById('total-investments').value),
+                    preferred_sectors: selectedSectors,
+                    preferred_stages: selectedStages,
+                    thesis: document.getElementById('thesis').value
+                },
+                startup: {
+                    sector: document.getElementById('sector').value,
+                    stage: document.getElementById('stage').value,
+                    location: document.getElementById('startup-location').value,
+                    founding_date: document.getElementById('founding-date').value,
+                    employees: parseInt(document.getElementById('employees').value),
+                    mrr: parseFloat(document.getElementById('mrr').value),
+                    growth_rate: parseFloat(document.getElementById('growth-rate').value),
+                    burn_rate: parseFloat(document.getElementById('burn-rate').value),
+                    funding_to_date: parseFloat(document.getElementById('funding-to-date').value),
+                    description: document.getElementById('description').value,
+                    last_valuation: parseFloat(document.getElementById('last-valuation').value)
+                }
+            };
+
+            // Debug logging
+            console.log('Form data being sent:', JSON.stringify(formData, null, 2));
 
             // API Request
             const startTime = performance.now();

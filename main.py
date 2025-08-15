@@ -195,11 +195,28 @@ def preprocess_input(investor_data, startup_data):
 @app.post("/predict_compatibility/")
 async def predict_compatibility(investor: InvestorInput, startup: StartupInput):
     try:
-        logger.info(f"Processing compatibility prediction for investor type: {investor.type} and startup sector: {startup.sector}")
+        # Detailed logging of input data
+        logger.info("Received investor data:")
+        logger.info(f"Type: {investor.type}")
+        logger.info(f"Check size: {investor.avg_check_size}")
+        logger.info(f"ROI: {investor.min_roi}")
+        logger.info(f"Risk: {investor.risk_appetite}")
+        logger.info(f"Sectors: {investor.preferred_sectors}")
+        logger.info(f"Stages: {investor.preferred_stages}")
+        
+        logger.info("Received startup data:")
+        logger.info(f"Sector: {startup.sector}")
+        logger.info(f"Stage: {startup.stage}")
+        logger.info(f"MRR: {startup.mrr}")
+        logger.info(f"Growth: {startup.growth_rate}")
         
         # Get feature vectors - now returns (compat_vec, traction_vec) for startup
         investor_vec, (startup_vec_compat, _) = preprocess_input(investor, startup)
         logger.info(f"Generated vectors - Investor: {investor_vec.shape}, Startup: {startup_vec_compat.shape}")
+        
+        # Log vector contents for debugging
+        logger.info(f"Investor vector sample: {investor_vec[:10]}")
+        logger.info(f"Startup vector sample: {startup_vec_compat[:10]}")
         
         # Combine vectors for compatibility prediction
         combined_vec = np.concatenate([investor_vec, startup_vec_compat])

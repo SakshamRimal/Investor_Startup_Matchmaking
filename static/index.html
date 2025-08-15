@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvestMatch Pro | Startup-Investor Matchmaking Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success-color: #059669;
+            --error-color: #dc2626;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #60a5fa, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            margin: 1rem 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-group { 
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                        0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        h2 { 
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        h3 { 
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label { 
+            display: block; 
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        input, textarea, select { 
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            color: var(--text-color);
+            background-color: white;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button { 
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin: 2rem auto;
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                       0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+        #result { 
+            margin-top: 20px;
+        }
+        .error { 
+            color: #d32f2f;
+            background-color: #ffebee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #ffcdd2;
+        }
+        .success { 
+            color: #1b5e20;
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #c8e6c9;
+        }
+        .loading {
+            padding: 15px;
+            margin: 20px 0;
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            border-radius: 8px;
+            border: 1px solid #bbdefb;
+        }
+        .debug-info { 
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+        }
+        .score-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                       0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .score-section h4 {
+            margin: 0 0 1.5rem 0;
+            color: var(--text-color);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .score::after {
+            content: '%';
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .score-details {
+            color: var(--text-color);
+            font-size: 1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-info {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .feature-info p {
+            margin: 0.5rem 0;
+        }
+
+        .loading {
+            padding: 2rem;
+            margin: 2rem 0;
+            background-color: #eff6ff;
+            color: var(--primary-color);
+            border-radius: 12px;
+            border: 1px solid #bfdbfe;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .error {
+            padding: 2rem;
+            margin: 2rem 0;
+            background-color: #fef2f2;
+            color: var(--error-color);
+            border-radius: 12px;
+            border: 1px solid #fecaca;
+            font-weight: 500;
+        }
+
+        .success {
+            padding: 2rem;
+            margin: 2rem 0;
+            background-color: #f0fdf4;
+            color: var(--success-color);
+            border-radius: 12px;
+            border: 1px solid #bbf7d0;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>InvestMatch Pro</h1>
+            <p>AI-Powered Startup-Investor Matchmaking Platform</p>
+        </div>
+    </header>
+    
+    <div class="container">
+
+    <form id="compatibility-form">
+    <div class="form-group">
+        <h3>Investor Details</h3>
+        <div class="form-grid">
+            <div class="input-group">
+                <label for="investor-type">Type</label>
+                <input type="text" id="investor-type" value="VC" placeholder="e.g., VC">
+            </div>
+
+            <div class="input-group">
+                <label for="investor-location">Location</label>
+                <input type="text" id="investor-location" value="USA" placeholder="e.g., USA">
+            </div>
+
+            <div class="input-group">
+                <label for="avg-check-size">Average Check Size ($)</label>
+                <input type="number" id="avg-check-size" value="1000000" placeholder="e.g., 100000">
+            </div>
+
+            <div class="input-group">
+                <label for="min-roi">Minimum ROI</label>
+                <input type="number" id="min-roi" value="3" step="0.1" placeholder="e.g., 5">
+            </div>
+
+            <div class="input-group">
+                <label for="risk-appetite">Risk Appetite (1-5)</label>
+                <input type="number" id="risk-appetite" value="4" min="1" max="5" placeholder="e.g., 3">
+            </div>
+
+            <div class="input-group">
+                <label for="years-active">Years Active</label>
+                <input type="number" id="years-active" value="5" placeholder="e.g., 10">
+            </div>
+
+            <div class="input-group">
+                <label for="total-investments">Total Investments</label>
+                <input type="number" id="total-investments" value="20" placeholder="e.g., 50">
+            </div>
+
+            <div class="input-group" style="grid-column: span 2;">
+                <label for="preferred-sectors">Preferred Sectors</label>
+                <input type="text" id="preferred-sectors" value="Tech, AI" placeholder="e.g., Tech, Fintech">
+            </div>
+
+            <div class="input-group" style="grid-column: span 2;">
+                <label for="preferred-stages">Preferred Stages</label>
+                <input type="text" id="preferred-stages" value="Seed, Series A" placeholder="e.g., Seed, Series A">
+            </div>
+
+            <div class="input-group" style="grid-column: 1 / -1;">
+                <label for="thesis">Investment Thesis</label>
+                <textarea id="thesis" placeholder="e.g., Focus on AI startups...">Focusing on early-stage technology companies with strong AI/ML capabilities</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <h3>Startup Details</h3>
+        <div class="form-grid">
+            <div class="input-group">
+                <label for="sector">Sector</label>
+                <input type="text" id="sector" value="Tech" placeholder="e.g., Tech">
+            </div>
+
+            <div class="input-group">
+                <label for="stage">Stage</label>
+                <input type="text" id="stage" value="Seed" placeholder="e.g., Seed">
+            </div>
+
+            <div class="input-group">
+                <label for="startup-location">Location</label>
+                <input type="text" id="startup-location" value="USA" placeholder="e.g., India">
+            </div>
+
+            <div class="input-group">
+                <label for="founding-date">Founding Date</label>
+                <input type="date" id="founding-date" value="2023-01-01">
+            </div>
+
+            <div class="input-group">
+                <label for="employees">Number of Employees</label>
+                <input type="number" id="employees" value="10" placeholder="e.g., 50">
+            </div>
+
+            <div class="input-group">
+                <label for="mrr">Monthly Recurring Revenue ($)</label>
+                <input type="number" id="mrr" value="50000" placeholder="e.g., 10000">
+            </div>
+
+            <div class="input-group">
+                <label for="growth-rate">Growth Rate (%)</label>
+                <input type="number" id="growth-rate" value="15" step="0.1" placeholder="e.g., 1.5">
+            </div>
+
+            <div class="input-group">
+                <label for="burn-rate">Monthly Burn Rate ($)</label>
+                <input type="number" id="burn-rate" value="100000" placeholder="e.g., 50000">
+            </div>
+
+            <div class="input-group">
+                <label for="funding-to-date">Total Funding to Date ($)</label>
+                <input type="number" id="funding-to-date" value="500000" placeholder="e.g., 1000000">
+            </div>
+
+            <div class="input-group">
+                <label for="last-valuation">Last Valuation ($M)</label>
+                <input type="number" id="last-valuation" value="5" placeholder="e.g., 10">
+            </div>
+
+            <div class="input-group" style="grid-column: 1 / -1;">
+                <label for="description">Company Description</label>
+                <textarea id="description" placeholder="e.g., Innovative AI startup...">AI-powered analytics platform for business intelligence</textarea>
+            </div>
+        </div>
+    </div>
+
+    <button id="predictButton" type="submit">Predict Compatibility</button>
+    </form>
+    <div id="loading" class="loading" style="display: none;">Calculating compatibility score...</div>
+    <div id="result"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const predictButton = document.getElementById('predictButton');
+    const resultDiv = document.getElementById('result');
+    const form = document.getElementById('compatibility-form');
+    const loadingDiv = document.getElementById('loading');
+    
+    // Prevent default form submission and handle prediction
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            predictCompatibility();
+        });
+    } else {
+        console.error('Form element not found');
+    }
+
+    // Function to collect and validate form data
+    function collectFormData() {
+        try {
+            // Get all values with validation
+            const getValue = (id, type = 'string') => {
+                const element = document.getElementById(id);
+                if (!element) throw new Error(`Element ${id} not found`);
+                
+                const value = element.value;
+                if (type === 'number') {
+                    const num = parseFloat(value);
+                    return isNaN(num) ? 0 : num;
+                }
+                if (type === 'int') {
+                    const num = parseInt(value);
+                    return isNaN(num) ? 0 : num;
+                }
+                if (type === 'array') {
+                    return value.split(',').map(s => s.trim()).filter(s => s);
+                }
+                return value;
+            };
+
+            return {
+                investor: {
+                    type: getValue('investor-type'),
+                    location: getValue('investor-location'),
+                    avg_check_size: getValue('avg-check-size', 'number'),
+                    min_roi: getValue('min-roi', 'number'),
+                    risk_appetite: getValue('risk-appetite', 'int'),
+                    years_active: getValue('years-active', 'int'),
+                    total_investments: getValue('total-investments', 'int'),
+                    preferred_sectors: getValue('preferred-sectors', 'array'),
+                    preferred_stages: getValue('preferred-stages', 'array'),
+                    thesis: getValue('thesis')
+                },
+                startup: {
+                    sector: getValue('sector'),
+                    stage: getValue('stage'),
+                    location: getValue('startup-location'),
+                    founding_date: getValue('founding-date'),
+                    employees: getValue('employees', 'int'),
+                    mrr: getValue('mrr', 'number'),
+                    growth_rate: getValue('growth-rate', 'number'),
+                    burn_rate: getValue('burn-rate', 'number'),
+                    funding_to_date: getValue('funding-to-date', 'number'),
+                    description: getValue('description'),
+                    last_valuation: getValue('last-valuation', 'number')
+                }
+            };
+        } catch (error) {
+            console.error('Form data collection error:', error);
+            throw new Error('Failed to collect form data. Please check all fields.');
+        }
+    }
+
+    // Function to display results
+    function displayResults(data) {
+        try {
+            resultDiv.innerHTML = ''; // Clear previous results
+            
+            if (data.error) {
+                resultDiv.className = 'error';
+                resultDiv.innerHTML = `<p><strong>Error:</strong> ${data.error}</p>`;
+                if (data.debug_info) {
+                    resultDiv.innerHTML += `<div class="debug-info">${JSON.stringify(data.debug_info, null, 2)}</div>`;
+                }
+                return;
+            }
+
+            if (!data.compatibility_score && data.compatibility_score !== 0) {
+                throw new Error('Invalid response from server');
+            }
+
+            const scorePercentage = (data.compatibility_score * 100).toFixed(2);
+            resultDiv.className = 'success';
+            resultDiv.innerHTML = `
+                <h3>Results:</h3>
+                <div class="score-section">
+                    <h4>Compatibility Score:</h4>
+                    <p class="score">${scorePercentage}%</p>
+                    <p class="score-details">Raw score: ${data.compatibility_score.toFixed(4)}</p>
+                </div>
+                <div class="feature-info">
+                    <p>Analyzed ${data.total_features || 'unknown'} features</p>
+                </div>
+            `;
+        } catch (error) {
+            console.error('Display error:', error);
+            resultDiv.className = 'error';
+            resultDiv.innerHTML = `
+                <p><strong>Error:</strong> ${error.message}</p>
+                <p>Invalid response format from server.</p>
+            `;
+        }
+    }
+
+    // Main prediction function
+    async function predictCompatibility() {
+        try {
+            // UI State Management
+            predictButton.disabled = true;
+            loadingDiv.style.display = 'block';
+            resultDiv.innerHTML = '';
+            resultDiv.className = '';
+
+            // Collect and validate data
+            const formData = collectFormData();
+            console.log('Form data:', formData);
+
+            // API Request
+            const startTime = performance.now();
+            const response = await fetch('http://localhost:8000/predict_compatibility/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const responseTime = ((performance.now() - startTime)/1000).toFixed(2);
+            console.log(`Response received in ${responseTime} seconds`);
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Server error:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    errorText
+                });
+                throw new Error(`Server error (${response.status}): ${errorText || 'Unknown error'}`);
+            }
+
+            const data = await response.json();
+            console.log('Response data:', data);
+            
+            // Display results
+            displayResults(data);
+
+        } catch (error) {
+            console.error('Prediction failed:', error);
+            resultDiv.className = 'error';
+            
+            let errorMessage = error.message;
+            // Handle specific error cases
+            if (error.message.includes('Failed to fetch')) {
+                errorMessage = 'Failed to connect to the server. Please check:';
+                errorMessage += '\n1. The server is running';
+                errorMessage += '\n2. Correct URL (http://localhost:8000)';
+                errorMessage += '\n3. No CORS issues';
+            }
+
+            resultDiv.innerHTML = `
+                <p><strong>Error:</strong> ${errorMessage}</p>
+                <p>Check browser console (F12) for details.</p>
+            `;
+        } finally {
+            // Cleanup
+            predictButton.disabled = false;
+            loadingDiv.style.display = 'none';
+        }
+    }
+
+    // Event Listener for button (fallback)
+    if (predictButton) {
+        predictButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            predictCompatibility();
+        });
+    } else {
+        console.error('Predict button not found');
+    }
+
+    // Auto-save form data
+    const inputs = document.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+        input.addEventListener('change', function() {
+            try {
+                const formData = collectFormData();
+                localStorage.setItem('formData', JSON.stringify(formData));
+            } catch (error) {
+                console.warn('Failed to save form data:', error);
+            }
+        });
+    });
+
+    // Load saved form data
+    function loadSavedData() {
+        try {
+            const savedData = localStorage.getItem('formData');
+            if (!savedData) return;
+
+            const formData = JSON.parse(savedData);
+            
+            // Helper function to set values safely
+            const setValue = (id, value) => {
+                const element = document.getElementById(id);
+                if (element && value !== undefined && value !== null) {
+                    element.value = value;
+                }
+            };
+
+            // Set investor values
+            if (formData.investor) {
+                const inv = formData.investor;
+                setValue('investor-type', inv.type);
+                setValue('investor-location', inv.location);
+                setValue('avg-check-size', inv.avg_check_size);
+                setValue('min-roi', inv.min_roi);
+                setValue('risk-appetite', inv.risk_appetite);
+                setValue('years-active', inv.years_active);
+                setValue('total-investments', inv.total_investments);
+                setValue('preferred-sectors', inv.preferred_sectors?.join(', '));
+                setValue('preferred-stages', inv.preferred_stages?.join(', '));
+                setValue('thesis', inv.thesis);
+            }
+
+            // Set startup values
+            if (formData.startup) {
+                const startup = formData.startup;
+                setValue('sector', startup.sector);
+                setValue('stage', startup.stage);
+                setValue('startup-location', startup.location);
+                setValue('founding-date', startup.founding_date);
+                setValue('employees', startup.employees);
+                setValue('mrr', startup.mrr);
+                setValue('growth-rate', startup.growth_rate);
+                setValue('burn-rate', startup.burn_rate);
+                setValue('funding-to-date', startup.funding_to_date);
+                setValue('description', startup.description);
+                setValue('last-valuation', startup.last_valuation);
+            }
+        } catch (error) {
+            console.warn('Failed to load saved data:', error);
+            localStorage.removeItem('formData');
+        }
+    }
+
+    // Initial load
+    loadSavedData();
+});
+    </script>
+</body>
+</html>

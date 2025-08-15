@@ -1,0 +1,121 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+.venv
+env.bak/
+venv.bak/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings
+*.sublime-workspace
+*.sublime-project
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Logs and databases
+*.log
+app.log
+*.sqlite
+*.db
+
+# Model files and large data
+*.joblib
+*.h5
+*.pkl
+*.model
+*.bin
+*.vec
+*.npy
+*.npz
+
+# Test coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Temporary files
+*.bak
+*.swp
+*.swo
+*~
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Large data files
+*.csv
+*.json
+!dummy_investors.json
+!dummy_startups.json
+
+# Documentation
+docs/_build/
+_build/
+doc/build/
+
+# Local development settings
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Node modules (if you add any JS dependencies later)
+node_modules/
+package-lock.json

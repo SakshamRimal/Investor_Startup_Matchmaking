@@ -1,0 +1,5 @@
+Save your models (just the internal sklearn models)
+joblib.dump(compat_model.model, 'compatibility_model.joblib')
+joblib.dump(history_model.model, 'history_model.joblib')
+joblib.dump(traction_model.model, 'traction_model.joblib')
+joblib.dump(industry_model.model, 'industry_model.joblib')

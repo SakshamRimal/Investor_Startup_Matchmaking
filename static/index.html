@@ -297,47 +297,107 @@
         <div class="form-grid">
             <div class="input-group">
                 <label for="investor-type">Type</label>
-                <input type="text" id="investor-type" value="VC" placeholder="e.g., VC">
+                <select id="investor-type" required>
+                    <option value="VC">Venture Capital (VC)</option>
+                    <option value="Angel">Angel Investor</option>
+                    <option value="Corporate">Corporate VC</option>
+                    <option value="PE">Private Equity (PE)</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="investor-location">Location</label>
-                <input type="text" id="investor-location" value="USA" placeholder="e.g., USA">
+                <select id="investor-location" required>
+                    <option value="USA">United States</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="India">India</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="China">China</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Other">Other</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="avg-check-size">Average Check Size ($)</label>
-                <input type="number" id="avg-check-size" value="1000000" placeholder="e.g., 100000">
+                <select id="avg-check-size" required>
+                    <option value="100000">$100K</option>
+                    <option value="250000">$250K</option>
+                    <option value="500000">$500K</option>
+                    <option value="1000000" selected>$1M</option>
+                    <option value="2000000">$2M</option>
+                    <option value="5000000">$5M</option>
+                    <option value="10000000">$10M+</option>
+                </select>
             </div>
 
             <div class="input-group">
-                <label for="min-roi">Minimum ROI</label>
-                <input type="number" id="min-roi" value="3" step="0.1" placeholder="e.g., 5">
+                <label for="min-roi">Minimum ROI (%)</label>
+                <select id="min-roi" required>
+                    <option value="2">2x</option>
+                    <option value="3" selected>3x</option>
+                    <option value="5">5x</option>
+                    <option value="7">7x</option>
+                    <option value="10">10x</option>
+                    <option value="15">15x+</option>
+                </select>
             </div>
 
             <div class="input-group">
-                <label for="risk-appetite">Risk Appetite (1-5)</label>
-                <input type="number" id="risk-appetite" value="4" min="1" max="5" placeholder="e.g., 3">
+                <label for="risk-appetite">Risk Appetite</label>
+                <select id="risk-appetite" required>
+                    <option value="1">Very Conservative</option>
+                    <option value="2">Conservative</option>
+                    <option value="3">Moderate</option>
+                    <option value="4" selected>Aggressive</option>
+                    <option value="5">Very Aggressive</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="years-active">Years Active</label>
-                <input type="number" id="years-active" value="5" placeholder="e.g., 10">
+                <select id="years-active" required>
+                    <option value="1">1-2 years</option>
+                    <option value="3">3-4 years</option>
+                    <option value="5" selected>5-7 years</option>
+                    <option value="8">8-10 years</option>
+                    <option value="10">10+ years</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="total-investments">Total Investments</label>
-                <input type="number" id="total-investments" value="20" placeholder="e.g., 50">
+                <select id="total-investments" required>
+                    <option value="5">1-5</option>
+                    <option value="10">6-10</option>
+                    <option value="20" selected>11-20</option>
+                    <option value="50">21-50</option>
+                    <option value="100">50+</option>
+                </select>
             </div>
 
             <div class="input-group" style="grid-column: span 2;">
-                <label for="preferred-sectors">Preferred Sectors</label>
-                <input type="text" id="preferred-sectors" value="Tech, AI" placeholder="e.g., Tech, Fintech">
+                <label for="preferred-sectors">Preferred Sectors (Multiple Selection)</label>
+                <select id="preferred-sectors" multiple required style="height: 120px;">
+                    <option value="Tech" selected>Technology</option>
+                    <option value="AI/ML" selected>AI/ML</option>
+                    <option value="Fintech">Fintech</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Consumer">Consumer</option>
+                    <option value="Enterprise">Enterprise/B2B</option>
+                    <option value="CleanTech">CleanTech</option>
+                </select>
             </div>
 
             <div class="input-group" style="grid-column: span 2;">
-                <label for="preferred-stages">Preferred Stages</label>
-                <input type="text" id="preferred-stages" value="Seed, Series A" placeholder="e.g., Seed, Series A">
+                <label for="preferred-stages">Preferred Stages (Multiple Selection)</label>
+                <select id="preferred-stages" multiple required style="height: 120px;">
+                    <option value="Pre-seed">Pre-seed</option>
+                    <option value="Seed" selected>Seed</option>
+                    <option value="Series A" selected>Series A</option>
+                    <option value="Series B">Series B</option>
+                    <option value="Growth">Growth</option>
+                </select>
             </div>
 
             <div class="input-group" style="grid-column: 1 / -1;">
@@ -352,52 +412,118 @@
         <div class="form-grid">
             <div class="input-group">
                 <label for="sector">Sector</label>
-                <input type="text" id="sector" value="Tech" placeholder="e.g., Tech">
+                <select id="sector" required>
+                    <option value="Tech" selected>Technology</option>
+                    <option value="AI/ML">AI/ML</option>
+                    <option value="Fintech">Fintech</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Consumer">Consumer</option>
+                    <option value="Enterprise">Enterprise/B2B</option>
+                    <option value="CleanTech">CleanTech</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="stage">Stage</label>
-                <input type="text" id="stage" value="Seed" placeholder="e.g., Seed">
+                <select id="stage" required>
+                    <option value="Pre-seed">Pre-seed</option>
+                    <option value="Seed" selected>Seed</option>
+                    <option value="Series A">Series A</option>
+                    <option value="Series B">Series B</option>
+                    <option value="Growth">Growth</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="startup-location">Location</label>
-                <input type="text" id="startup-location" value="USA" placeholder="e.g., India">
+                <select id="startup-location" required>
+                    <option value="USA" selected>United States</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="India">India</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="China">China</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Other">Other</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="founding-date">Founding Date</label>
-                <input type="date" id="founding-date" value="2023-01-01">
+                <input type="date" id="founding-date" value="2023-01-01" required>
             </div>
 
             <div class="input-group">
                 <label for="employees">Number of Employees</label>
-                <input type="number" id="employees" value="10" placeholder="e.g., 50">
+                <select id="employees" required>
+                    <option value="5">1-5</option>
+                    <option value="10" selected>6-10</option>
+                    <option value="25">11-25</option>
+                    <option value="50">26-50</option>
+                    <option value="100">51-100</option>
+                    <option value="200">100+</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="mrr">Monthly Recurring Revenue ($)</label>
-                <input type="number" id="mrr" value="50000" placeholder="e.g., 10000">
+                <select id="mrr" required>
+                    <option value="0">Pre-revenue</option>
+                    <option value="10000">$10K</option>
+                    <option value="25000">$25K</option>
+                    <option value="50000" selected>$50K</option>
+                    <option value="100000">$100K</option>
+                    <option value="250000">$250K</option>
+                    <option value="500000">$500K+</option>
+                </select>
             </div>
 
             <div class="input-group">
-                <label for="growth-rate">Growth Rate (%)</label>
-                <input type="number" id="growth-rate" value="15" step="0.1" placeholder="e.g., 1.5">
+                <label for="growth-rate">Monthly Growth Rate (%)</label>
+                <select id="growth-rate" required>
+                    <option value="5">1-5%</option>
+                    <option value="10">6-10%</option>
+                    <option value="15" selected>11-15%</option>
+                    <option value="20">16-20%</option>
+                    <option value="30">21-30%</option>
+                    <option value="50">30%+</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="burn-rate">Monthly Burn Rate ($)</label>
-                <input type="number" id="burn-rate" value="100000" placeholder="e.g., 50000">
+                <select id="burn-rate" required>
+                    <option value="10000">$10K</option>
+                    <option value="25000">$25K</option>
+                    <option value="50000">$50K</option>
+                    <option value="100000" selected>$100K</option>
+                    <option value="250000">$250K</option>
+                    <option value="500000">$500K+</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="funding-to-date">Total Funding to Date ($)</label>
-                <input type="number" id="funding-to-date" value="500000" placeholder="e.g., 1000000">
+                <select id="funding-to-date" required>
+                    <option value="0">No funding</option>
+                    <option value="100000">$100K</option>
+                    <option value="250000">$250K</option>
+                    <option value="500000" selected>$500K</option>
+                    <option value="1000000">$1M</option>
+                    <option value="5000000">$5M</option>
+                    <option value="10000000">$10M+</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="last-valuation">Last Valuation ($M)</label>
-                <input type="number" id="last-valuation" value="5" placeholder="e.g., 10">
+                <select id="last-valuation" required>
+                    <option value="1">$1M</option>
+                    <option value="3">$3M</option>
+                    <option value="5" selected>$5M</option>
+                    <option value="10">$10M</option>
+                    <option value="20">$20M</option>
+                    <option value="50">$50M+</option>
+                </select>
             </div>
 
             <div class="input-group" style="grid-column: 1 / -1;">

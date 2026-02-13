@@ -23,8 +23,6 @@ An AI-powered startup-investor matchmaking platform that uses advanced machine l
   - Compatibility Prediction (Gradient Boosting)
   - Traction Analysis (XGBoost)
   - Industry Compatibility (Node2Vec)
-  - Investment History Analysis (LSTM)
-  - Novel Startup Suggestions (PCA + KMeans)
 
 ## 📊 Models & Features
 

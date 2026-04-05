@@ -1,0 +1,1223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InvestMatch Pro</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0f1117;
+        --surface: #1a1d2e;
+        --surface2: #21263a;
+        --border: #2a3050;
+        --accent: #6c63ff;
+        --accent2: #4ecdc4;
+        --green: #00e5a0;
+        --orange: #ff8c42;
+        --red: #ff4d6d;
+        --text: #e8eaf6;
+        --text2: #8892b0;
+        --text3: #4a5568;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+      }
+
+      /* Header */
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 32px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .logo-icon {
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+      nav {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+      nav button {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        background: transparent;
+        color: var(--text2);
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      nav button.active {
+        background: var(--accent);
+        color: #fff;
+      }
+      nav button:hover:not(.active) {
+        background: var(--surface2);
+        color: var(--text);
+      }
+      .badge {
+        padding: 4px 12px;
+        background: rgba(0, 229, 160, 0.15);
+        color: var(--green);
+        border: 1px solid rgba(0, 229, 160, 0.3);
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      /* Layout */
+      main {
+        padding: 28px 32px;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+      h2 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .subtitle {
+        color: var(--text2);
+        font-size: 13px;
+        margin-bottom: 24px;
+      }
+
+      /* Cards */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 20px;
+      }
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .kpi {
+        text-align: center;
+        padding: 24px 16px;
+      }
+      .kpi .val {
+        font-size: 36px;
+        font-weight: 700;
+        margin: 8px 0 4px;
+      }
+      .kpi .lbl {
+        font-size: 12px;
+        color: var(--text2);
+      }
+      .kpi .ico {
+        font-size: 24px;
+      }
+      .blue {
+        color: var(--accent);
+      }
+      .green {
+        color: var(--green);
+      }
+      .orange {
+        color: var(--orange);
+      }
+      .purple {
+        color: #b57bee;
+      }
+
+      /* Table */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        table-layout: fixed;
+      }
+      th,
+      td {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+      th {
+        text-align: left;
+        padding: 10px 14px;
+        color: var(--text2);
+        font-weight: 600;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid var(--border);
+      }
+      td {
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(42, 48, 80, 0.5);
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tr:hover td {
+        background: rgba(108, 99, 255, 0.05);
+      }
+
+      /* Score bar */
+      .score-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .bar-track {
+        flex: 1;
+        height: 6px;
+        background: var(--border);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .bar-fill {
+        height: 100%;
+        border-radius: 3px;
+        transition: width 0.6s ease;
+      }
+      .bar-green {
+        background: var(--green);
+      }
+      .bar-blue {
+        background: var(--accent);
+      }
+      .bar-orange {
+        background: var(--orange);
+      }
+      .bar-num {
+        font-size: 12px;
+        font-weight: 600;
+        width: 36px;
+        text-align: right;
+      }
+
+      /* Tags */
+      .tag {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 5px;
+        font-size: 11px;
+        font-weight: 600;
+        margin: 2px;
+      }
+      .tag-blue {
+        background: rgba(108, 99, 255, 0.15);
+        color: var(--accent);
+      }
+      .tag-green {
+        background: rgba(0, 229, 160, 0.15);
+        color: var(--green);
+      }
+      .tag-orange {
+        background: rgba(255, 140, 66, 0.15);
+        color: var(--orange);
+      }
+      .tag-purple {
+        background: rgba(181, 123, 238, 0.15);
+        color: #b57bee;
+      }
+
+      /* Form elements */
+      select,
+      input {
+        width: 100%;
+        padding: 10px 14px;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        outline: none;
+        transition: 0.2s;
+      }
+      select:focus,
+      input:focus {
+        border-color: var(--accent);
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        color: var(--text2);
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .btn {
+        padding: 11px 20px;
+        border-radius: 8px;
+        border: none;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        width: 100%;
+        margin-top: 4px;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: #5a52e0;
+      }
+      .btn-secondary {
+        background: var(--surface2);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .btn-secondary:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      /* Result panel */
+      .result-box {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 16px;
+        display: none;
+      }
+      .result-box.show {
+        display: block;
+      }
+      .big-score {
+        font-size: 52px;
+        font-weight: 700;
+        line-height: 1;
+      }
+      .result-label {
+        font-size: 13px;
+        color: var(--text2);
+        margin-top: 4px;
+      }
+      .factors-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 14px;
+      }
+      .factor-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: var(--surface);
+        border-radius: 8px;
+        font-size: 13px;
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .dot-green {
+        background: var(--green);
+      }
+      .dot-red {
+        background: var(--red);
+      }
+
+      /* Suggestion cards */
+      .sug-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        margin-bottom: 10px;
+      }
+      .sug-rank {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text3);
+        width: 28px;
+        text-align: center;
+      }
+      .sug-info {
+        flex: 1;
+      }
+      .sug-name {
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .sug-meta {
+        font-size: 12px;
+        color: var(--text2);
+        margin-top: 3px;
+      }
+      .sug-score {
+        text-align: right;
+      }
+      .sug-score .main-score {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--green);
+      }
+      .sug-score .sub {
+        font-size: 11px;
+        color: var(--text2);
+      }
+
+      /* Sector matrix */
+      .matrix-cell {
+        padding: 6px;
+        text-align: center;
+        font-size: 12px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+
+      /* Spinner */
+      .spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(108, 99, 255, 0.3);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        margin: 0 auto;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Loading overlay */
+      #loading {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 17, 23, 0.9);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        gap: 16px;
+      }
+      #loading .spin-big {
+        width: 52px;
+        height: 52px;
+        border: 4px solid rgba(108, 99, 255, 0.3);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      #loading p {
+        color: var(--text2);
+        font-size: 15px;
+      }
+      #loading .step-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      #loading .step {
+        font-size: 13px;
+        color: var(--text3);
+        padding: 4px 0;
+      }
+      #loading .step.done {
+        color: var(--green);
+      }
+      #loading .step.active {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading">
+      <div class="spin-big"></div>
+      <p>Training AI models on startup data…</p>
+      <div class="step-list" id="stepList">
+        <div class="step active" id="s1">⟳ CompatibilityModel (Keras DNN)</div>
+        <div class="step" id="s2">○ TractionModel (Regression Network)</div>
+        <div class="step" id="s3">○ SectorModel (Node2Vec / SVD)</div>
+        <div class="step" id="s4">○ InvestmentHistoryModel (BiLSTM)</div>
+        <div class="step" id="s5">
+          ○ SuggestionEngine (Autoencoder + KMeans)
+        </div>
+      </div>
+    </div>
+
+    <div id="app" style="display: none">
+      <header>
+        <div class="logo">
+          <div class="logo-icon">🚀</div>
+          InvestMatch <span style="color: var(--accent)">Pro</span>
+        </div>
+        <nav>
+          <button class="active" onclick="showPage('dashboard', this)">
+            Dashboard
+          </button>
+          <button onclick="showPage('matchmaking', this)">Matchmaking</button>
+          <button onclick="showPage('startups', this)">Startups</button>
+          <button onclick="showPage('investors', this)">Investors</button>
+          <button onclick="showPage('sectors', this)">Sectors</button>
+          <button onclick="showPage('suggest', this)">Suggest</button>
+        </nav>
+        <div class="badge">● Live</div>
+      </header>
+
+      <main>
+        <!-- ── DASHBOARD ─────────────────────────────────────────────────────── -->
+        <div class="page active" id="page-dashboard">
+          <h2>Platform Dashboard</h2>
+          <p class="subtitle">
+            Real-time overview of the matchmaking ecosystem
+          </p>
+
+          <div class="grid-4" id="kpiRow"></div>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3 style="margin-bottom: 14px; font-size: 15px">
+                🏆 Top Startups by Traction
+              </h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Startup</th>
+                    <th>Sector</th>
+                    <th>Stage</th>
+                    <th>Traction</th>
+                  </tr>
+                </thead>
+                <tbody id="topStartups"></tbody>
+              </table>
+            </div>
+            <div class="card">
+              <h3 style="margin-bottom: 14px; font-size: 15px">
+                🤝 Recent Matches
+              </h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Investor</th>
+                    <th>Startup</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody id="recentMatches"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top: 20px">
+            <h3 style="margin-bottom: 14px; font-size: 15px">
+              ⚙️ Model Performance Metrics
+            </h3>
+            <div class="grid-4" id="metricsRow"></div>
+          </div>
+        </div>
+
+        <!-- ── MATCHMAKING ───────────────────────────────────────────────────── -->
+        <div class="page" id="page-matchmaking">
+          <h2>Investor–Startup Matchmaking</h2>
+          <p class="subtitle">
+            Keras DNN predicts compatibility probability across 19 engineered
+            features
+          </p>
+          <div class="grid-2">
+            <div class="card">
+              <div class="form-group">
+                <label>Select Investor</label
+                ><select id="selInvestor"></select>
+              </div>
+              <div class="form-group">
+                <label>Select Startup</label
+                ><select id="selStartup"></select>
+              </div>
+              <button class="btn btn-primary" onclick="runMatch()">
+                Predict Compatibility
+              </button>
+
+              <div class="result-box" id="matchResult">
+                <div
+                  style="
+                    display: flex;
+                    align-items: flex-end;
+                    gap: 20px;
+                    margin-bottom: 16px;
+                  "
+                >
+                  <div>
+                    <div class="big-score blue" id="matchScore">—</div>
+                    <div class="result-label" id="matchLabel">
+                      match probability
+                    </div>
+                  </div>
+                  <div style="flex: 1">
+                    <div
+                      style="font-size: 15px; font-weight: 600"
+                      id="matchTag"
+                    ></div>
+                    <div
+                      style="
+                        font-size: 13px;
+                        color: var(--text2);
+                        margin-top: 4px;
+                      "
+                      id="sectorSim"
+                    ></div>
+                  </div>
+                </div>
+                <div class="factors-grid" id="matchFactors"></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3 style="font-size: 15px; margin-bottom: 14px">
+                🔮 Next-Sector Predictor (BiLSTM)
+              </h3>
+              <div class="form-group">
+                <label>Investment History (comma-separated sectors)</label>
+                <input
+                  id="historyInput"
+                  placeholder="FinTech, AI/ML, SaaS, Cybersecurity"
+                />
+              </div>
+              <button class="btn btn-secondary" onclick="runLSTM()">
+                Predict Next Sector
+              </button>
+              <div class="result-box" id="lstmResult" style="margin-top: 14px">
+                <p
+                  style="
+                    font-size: 13px;
+                    color: var(--text2);
+                    margin-bottom: 10px;
+                  "
+                >
+                  Predicted next investments:
+                </p>
+                <div id="lstmPreds"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── STARTUPS ──────────────────────────────────────────────────────── -->
+        <div class="page" id="page-startups">
+          <h2>Startup Portfolio</h2>
+          <p class="subtitle">
+            Traction scored by Huber-loss Keras regression network
+          </p>
+          <div class="card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Sector</th>
+                  <th>Stage</th>
+                  <th>MRR</th>
+                  <th>Growth</th>
+                  <th>Runway</th>
+                  <th>Traction Score</th>
+                </tr>
+              </thead>
+              <tbody id="startupTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── INVESTORS ─────────────────────────────────────────────────────── -->
+        <div class="page" id="page-investors">
+          <h2>Investor Network</h2>
+          <p class="subtitle">
+            Investor profiles with thesis, sector preferences, and risk appetite
+          </p>
+          <div class="card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Thesis</th>
+                  <th>Sectors</th>
+                  <th>Stages</th>
+                  <th>Check Size</th>
+                  <th>Risk</th>
+                </tr>
+              </thead>
+              <tbody id="investorTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── SECTORS ───────────────────────────────────────────────────────── -->
+        <div class="page" id="page-sectors">
+          <h2>Sector Compatibility Map</h2>
+          <p class="subtitle">
+            Sector embeddings learned via Node2Vec graph walks on co-investment
+            network
+          </p>
+          <div class="grid-2">
+            <div class="card">
+              <h3 style="font-size: 15px; margin-bottom: 14px">
+                🔍 Pairwise Similarity
+              </h3>
+              <div class="form-group">
+                <label>Sector A</label
+                ><select id="secA"></select>
+              </div>
+              <div class="form-group">
+                <label>Sector B</label
+                ><select id="secB"></select>
+              </div>
+              <button class="btn btn-primary" onclick="runSector()">
+                Compute Similarity
+              </button>
+              <div class="result-box" id="sectorResult">
+                <div class="big-score green" id="sectorScore"></div>
+                <div class="result-label">cosine similarity</div>
+                <div id="sectorTopA" style="margin-top: 12px"></div>
+              </div>
+            </div>
+            <div class="card">
+              <h3 style="font-size: 15px; margin-bottom: 14px">
+                🗺️ Similarity Heatmap
+              </h3>
+              <div id="heatmap" style="overflow-x: auto"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SUGGEST ───────────────────────────────────────────────────────── -->
+        <div class="page" id="page-suggest">
+          <h2>AI Suggestion Engine</h2>
+          <p class="subtitle">
+            Autoencoder + KMeans finds novel opportunities beyond obvious sector
+            matches
+          </p>
+          <div class="grid-2">
+            <div class="card" style="max-height: fit-content">
+              <div class="form-group">
+                <label>Select Investor</label
+                ><select id="sugInvestor"></select>
+              </div>
+              <div class="form-group">
+                <label>Results (top-k)</label>
+                <select id="sugK">
+                  <option>3</option>
+                  <option selected>5</option>
+                  <option>8</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label
+                  >Novelty Weight
+                  <span id="novVal" style="color: var(--accent)"
+                    >0.3</span
+                  ></label
+                >
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value="0.3"
+                  style="
+                    padding: 0;
+                    border: none;
+                    background: none;
+                    cursor: pointer;
+                  "
+                  oninput="
+                    document.getElementById('novVal').textContent = this.value
+                  "
+                />
+              </div>
+              <button class="btn btn-primary" onclick="runSuggest()">
+                Find Opportunities
+              </button>
+            </div>
+            <div>
+              <div id="sugResults"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <!-- #app -->
+
+    <script>
+      const API = ""; // same origin
+
+      // ── Utilities ──────────────────────────────────────────────────────────────
+      const $ = (id) => document.getElementById(id);
+      const fmt = (n) =>
+        typeof n === "number" ? (n * 100).toFixed(1) + "%" : n;
+      const fmtK = (n) =>
+        n >= 1e6
+          ? (n / 1e6).toFixed(1) + "M"
+          : n >= 1e3
+            ? (n / 1e3).toFixed(0) + "K"
+            : n;
+      const tagColor = (s) => {
+        const m = {
+          FinTech: "blue",
+          HealthTech: "green",
+          "AI/ML": "purple",
+          CleanTech: "green",
+          EdTech: "orange",
+          SaaS: "blue",
+          Cybersecurity: "orange",
+          Web3: "purple",
+          BioTech: "green",
+          SpaceTech: "blue",
+        };
+        return m[s] || "blue";
+      };
+      const scoreColor = (v) =>
+        v >= 0.65 ? "var(--green)" : v >= 0.4 ? "var(--orange)" : "var(--red)";
+
+      async function api(path, method = "GET", body = null) {
+        const opts = {
+          method,
+          headers: { "Content-Type": "application/json" },
+        };
+        if (body) opts.body = JSON.stringify(body);
+        const r = await fetch(API + path, opts);
+        return r.json();
+      }
+
+      // ── Nav ────────────────────────────────────────────────────────────────────
+      function showPage(id, btn) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll("nav button")
+          .forEach((b) => b.classList.remove("active"));
+        $("page-" + id).classList.add("active");
+        btn.classList.add("active");
+      }
+
+      // ── Init ───────────────────────────────────────────────────────────────────
+      async function init() {
+        // Simulate model loading steps
+        const steps = ["s1", "s2", "s3", "s4", "s5"];
+        for (let i = 0; i < steps.length; i++) {
+          await new Promise((r) => setTimeout(r, 600));
+          $(steps[i]).textContent = "✓ " + $(steps[i]).textContent.slice(2);
+          $(steps[i]).classList.remove("active");
+          $(steps[i]).classList.add("done");
+          if (i + 1 < steps.length) {
+            $(steps[i + 1]).classList.add("active");
+            $(steps[i + 1]).textContent =
+              "⟳ " + $(steps[i + 1]).textContent.slice(2);
+          }
+        }
+        await new Promise((r) => setTimeout(r, 400));
+
+        const [dash, investors, startups, sectors] = await Promise.all([
+          api("/api/dashboard"),
+          api("/api/investors"),
+          api("/api/startups"),
+          api("/api/sectors"),
+        ]);
+
+        renderDashboard(dash);
+        renderStartups(startups);
+        renderInvestors(investors);
+        populateSelects(investors, startups, sectors);
+        renderSectors(sectors);
+        renderHeatmap();
+
+        $("loading").style.display = "none";
+        $("app").style.display = "block";
+      }
+
+      // ── Dashboard ──────────────────────────────────────────────────────────────
+      function renderDashboard(d) {
+        $("kpiRow").innerHTML = [
+          { ico: "👥", val: d.total_investors, lbl: "Investors", cls: "blue" },
+          { ico: "🚀", val: d.total_startups, lbl: "Startups", cls: "green" },
+          {
+            ico: "🤝",
+            val: d.total_matches,
+            lbl: "Matches Analysed",
+            cls: "orange",
+          },
+          {
+            ico: "📈",
+            val: d.avg_traction,
+            lbl: "Avg Traction Score",
+            cls: "purple",
+          },
+        ]
+          .map(
+            (k) => `<div class="card kpi">
+    <div class="ico">${k.ico}</div>
+    <div class="val ${k.cls}">${k.val}</div>
+    <div class="lbl">${k.lbl}</div>
+  </div>`,
+          )
+          .join("");
+
+        $("topStartups").innerHTML = d.top_startups
+          .map(
+            (s) => `<tr>
+    <td><strong>${s.name}</strong></td>
+    <td><span class="tag tag-${tagColor(s.sector)}">${s.sector}</span></td>
+    <td>${s.stage}</td>
+    <td>
+      <div class="score-bar">
+        <div class="bar-track"><div class="bar-fill bar-green" style="width:${s.traction_score}%"></div></div>
+        <div class="bar-num" style="color:var(--green)">${s.traction_score}</div>
+      </div>
+    </td>
+  </tr>`,
+          )
+          .join("");
+
+        $("recentMatches").innerHTML = d.recent_matches
+          .map(
+            (m) => `<tr>
+    <td style="font-size:12px">${m.investor_name}</td>
+    <td style="font-size:12px">${m.startup_name}</td>
+    <td>
+      <div class="score-bar">
+        <div class="bar-track"><div class="bar-fill bar-blue" style="width:${m.score * 100}%"></div></div>
+        <div class="bar-num" style="color:var(--accent)">${(m.score * 100).toFixed(0)}%</div>
+      </div>
+    </td>
+  </tr>`,
+          )
+          .join("");
+
+        const mm = d.model_metrics;
+        $("metricsRow").innerHTML = [
+          {
+            lbl: "Compatibility AUC-ROC",
+            val: mm.compatibility_auc,
+            cls: "blue",
+            icon: "🧠",
+          },
+          {
+            lbl: "Traction RMSE",
+            val: mm.traction_rmse,
+            cls: "green",
+            icon: "📉",
+          },
+          {
+            lbl: "Sector Graph Edges",
+            val: mm.sector_graph_edges,
+            cls: "orange",
+            icon: "🕸️",
+          },
+          {
+            lbl: "LSTM Val Accuracy",
+            val: (mm.lstm_val_accuracy * 100).toFixed(1) + "%",
+            cls: "purple",
+            icon: "🔮",
+          },
+        ]
+          .map(
+            (m) => `<div style="text-align:center;padding:16px">
+    <div style="font-size:22px">${m.icon}</div>
+    <div style="font-size:24px;font-weight:700;color:var(--${m.cls})">${m.val}</div>
+    <div style="font-size:12px;color:var(--text2);margin-top:4px">${m.lbl}</div>
+  </div>`,
+          )
+          .join("");
+      }
+
+      // ── Startups table ─────────────────────────────────────────────────────────
+      function renderStartups(data) {
+        $("startupTable").innerHTML = data
+          .map(
+            (s) => `<tr>
+    <td><strong>${s.name}</strong></td>
+    <td><span class="tag tag-${tagColor(s.sector)}">${s.sector}</span></td>
+    <td><span class="tag tag-orange">${s.stage}</span></td>
+    <td>$${fmtK(Math.round(s.mrr))}</td>
+    <td style="color:${s.growth_rate > 0.1 ? "var(--green)" : "var(--orange)"}">
+      ${(s.growth_rate * 100).toFixed(1)}%</td>
+    <td>${s.runway_months}mo</td>
+    <td>
+      <div class="score-bar">
+        <div class="bar-track"><div class="bar-fill bar-green" style="width:${s.traction_score}%"></div></div>
+        <div class="bar-num" style="color:var(--green)">${s.traction_score}</div>
+      </div>
+    </td>
+  </tr>`,
+          )
+          .join("");
+      }
+
+      // ── Investors table ────────────────────────────────────────────────────────
+      function renderInvestors(data) {
+        $("investorTable").innerHTML = data
+          .map(
+            (i) => `<tr>
+    <td><strong>${i.name}</strong></td>
+    <td style="font-size:12px;color:var(--text2);max-width:200px">${i.thesis}</td>
+    <td>${i.preferred_sectors.map((s) => `<span class="tag tag-${tagColor(s)}">${s}</span>`).join("")}</td>
+    <td>${i.preferred_stages.map((s) => `<span class="tag tag-orange">${s}</span>`).join("")}</td>
+    <td style="font-size:12px">$${fmtK(i.min_check)}–$${fmtK(i.max_check)}</td>
+    <td>
+      <div class="score-bar">
+        <div class="bar-track"><div class="bar-fill bar-blue" style="width:${i.risk_appetite * 100}%"></div></div>
+        <div class="bar-num">${(i.risk_appetite * 100).toFixed(0)}%</div>
+      </div>
+    </td>
+  </tr>`,
+          )
+          .join("");
+      }
+
+      // ── Selects ────────────────────────────────────────────────────────────────
+      function populateSelects(investors, startups, sectors) {
+        ["selInvestor", "sugInvestor"].forEach((id) => {
+          $(id).innerHTML = investors
+            .map((i) => `<option value="${i.investor_id}">${i.name}</option>`)
+            .join("");
+        });
+        $("selStartup").innerHTML = startups
+          .map(
+            (s) =>
+              `<option value="${s.startup_id}">${s.name} (${s.sector})</option>`,
+          )
+          .join("");
+        ["secA", "secB"].forEach((id) => {
+          $(id).innerHTML = sectors.sectors
+            .map((s) => `<option>${s}</option>`)
+            .join("");
+        });
+        $("secB").value = sectors.sectors[2];
+      }
+
+      // ── Sector selects ─────────────────────────────────────────────────────────
+      function renderSectors(sectors) {
+        // sector selects populated in populateSelects
+      }
+
+      // ── Heatmap ────────────────────────────────────────────────────────────────
+      async function renderHeatmap() {
+        const d = await api("/api/sector_similarity", "POST", {
+          sector_a: "FinTech",
+          sector_b: "AI/ML",
+        });
+        const mat = d.similarity_matrix;
+        const sectors = Object.keys(mat);
+        const short = (s) => s.replace("/", "").substring(0, 6);
+        let html = `<table style="font-size:11px;border-collapse:collapse">
+    <tr><th></th>${sectors.map((s) => `<th style="padding:4px;color:var(--text2);font-weight:600">${short(s)}</th>`).join("")}</tr>`;
+        for (const r of sectors) {
+          html += `<tr><td style="padding:4px 8px;color:var(--text2);font-weight:600;font-size:11px">${short(r)}</td>`;
+          for (const c of sectors) {
+            const v = mat[r][c];
+            const pct = Math.round(v * 100);
+            const bg =
+              v > 0.8
+                ? "rgba(0,229,160,0.4)"
+                : v > 0.6
+                  ? "rgba(0,229,160,0.2)"
+                  : v > 0.4
+                    ? "rgba(108,99,255,0.2)"
+                    : "rgba(42,48,80,0.3)";
+            html += `<td class="matrix-cell" style="background:${bg};padding:6px 8px">${pct}</td>`;
+          }
+          html += "</tr>";
+        }
+        html += "</table>";
+        $("heatmap").innerHTML = html;
+      }
+
+      // ── Match prediction ───────────────────────────────────────────────────────
+      async function runMatch() {
+        const inv = $("selInvestor").value;
+        const stp = $("selStartup").value;
+        const d = await api("/api/predict_compatibility", "POST", {
+          investor_id: inv,
+          startup_id: stp,
+        });
+
+        $("matchScore").textContent =
+          (d.compatibility_score * 100).toFixed(1) + "%";
+        $("matchScore").style.color = scoreColor(d.compatibility_score);
+        $("matchTag").textContent = d.label;
+        $("matchTag").style.color = scoreColor(d.compatibility_score);
+        $("sectorSim").textContent =
+          `Sector affinity: ${(d.sector_similarity * 100).toFixed(0)}%`;
+
+        const f = d.factors;
+        $("matchFactors").innerHTML = [
+          { k: "Sector Match", v: f.sector_match },
+          { k: "Stage Match", v: f.stage_match },
+          { k: "Check Size Fit", v: f.check_fit },
+          { k: "Growth > 10%", v: f.growth_good },
+          { k: "Runway > 6mo", v: f.runway_ok },
+        ]
+          .map(
+            (x) => `<div class="factor-pill">
+    <div class="dot ${x.v ? "dot-green" : "dot-red"}"></div>
+    <span>${x.k}</span>
+    <span style="margin-left:auto;color:${x.v ? "var(--green)" : "var(--red)"};font-weight:600">
+      ${x.v ? "✓ Yes" : "✗ No"}</span>
+  </div>`,
+          )
+          .join("");
+
+        $("matchResult").classList.add("show");
+      }
+
+      // ── LSTM ───────────────────────────────────────────────────────────────────
+      async function runLSTM() {
+        const history = $("historyInput")
+          .value.split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
+        const d = await api("/api/predict_next_sector", "POST", {
+          history,
+          top_k: 3,
+        });
+        $("lstmPreds").innerHTML = d.predictions
+          .map(
+            (p, i) => `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <span style="font-size:14px;font-weight:700;color:var(--text3);width:20px">${i + 1}</span>
+      <span class="tag tag-${tagColor(p.sector)}">${p.sector}</span>
+      <div class="bar-track" style="flex:1"><div class="bar-fill bar-blue" style="width:${p.probability * 500}%"></div></div>
+      <span style="font-size:13px;font-weight:600;color:var(--accent)">${(p.probability * 100).toFixed(1)}%</span>
+    </div>`,
+          )
+          .join("");
+        $("lstmResult").classList.add("show");
+      }
+
+      // ── Sector similarity ──────────────────────────────────────────────────────
+      async function runSector() {
+        const a = $("secA").value,
+          b = $("secB").value;
+        const d = await api("/api/sector_similarity", "POST", {
+          sector_a: a,
+          sector_b: b,
+        });
+        const s = d.similarity_score;
+        $("sectorScore").textContent = (s * 100).toFixed(1) + "%";
+        $("sectorScore").style.color =
+          s > 0.7 ? "var(--green)" : s > 0.4 ? "var(--orange)" : "var(--red)";
+        $("sectorTopA").innerHTML = `
+    <p style="font-size:12px;color:var(--text2);margin-bottom:8px">Most similar to <strong>${a}</strong>:</p>
+    ${d.top_similar_to_a
+      .map(
+        ([
+          s,
+          sc,
+        ]) => `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px">
+      <span class="tag tag-${tagColor(s)}">${s}</span>
+      <span style="color:var(--green);font-weight:600">${(sc * 100).toFixed(1)}%</span>
+    </div>`,
+      )
+      .join("")}`;
+        $("sectorResult").classList.add("show");
+      }
+
+      // ── Suggestions ────────────────────────────────────────────────────────────
+      async function runSuggest() {
+        const inv_id = $("sugInvestor").value;
+        const top_k = parseInt($("sugK").value);
+        const novelty_weight = parseFloat(
+          document.querySelector("input[type=range]").value,
+        );
+        const d = await api("/api/suggest", "POST", {
+          investor_id: inv_id,
+          top_k,
+          novelty_weight,
+        });
+
+        $("sugResults").innerHTML = `
+    <div style="margin-bottom:12px">
+      <strong>${d.investor_name}</strong>
+      <span style="color:var(--text2);font-size:13px;margin-left:8px">
+        prefers: ${d.preferred_sectors.map((s) => `<span class="tag tag-${tagColor(s)}">${s}</span>`).join("")}
+      </span>
+    </div>
+    ${d.suggestions
+      .map(
+        (s, i) => `<div class="sug-card">
+      <div class="sug-rank">${i + 1}</div>
+      <div class="sug-info">
+        <div class="sug-name">${s.name}</div>
+        <div class="sug-meta">
+          <span class="tag tag-${tagColor(s.sector)}">${s.sector}</span>
+          <span class="tag tag-orange">${s.stage}</span>
+          ${s.novelty_score > 0 ? '<span class="tag tag-purple">Novel Pick</span>' : ""}
+        </div>
+      </div>
+      <div class="sug-score">
+        <div class="main-score">${(s.combined_score * 100).toFixed(1)}%</div>
+        <div class="sub">combined score</div>
+      </div>
+    </div>`,
+      )
+      .join("")}`;
+      }
+
+      init();
+    </script>
+  </body>
+</html>

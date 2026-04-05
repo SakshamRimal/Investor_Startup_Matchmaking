@@ -1,4 +1,5 @@
 # InvestMatch Pro 🚀
+
 ### AI-Powered Startup-Investor Matchmaking Platform
 
 ---
@@ -7,17 +8,23 @@
 
 ```
 investmatch_pro/
+├── main.py                    # FastAPI app entrypoint
+├── state.py                   # Data + model training + helpers
+├── schemas.py                 # Pydantic request models
+├── routes/                    # API route modules
+│   ├── entities.py            # Investors/startups/sectors
+│   ├── predictions.py         # ML predictions endpoints
+│   ├── dashboard.py           # Stats + metrics
+│   └── frontend.py            # Serves UI
 ├── requirements.txt
 ├── data/
 │   └── dummy_data.py          # All synthetic investor + startup data
 ├── models/
-│   ├── compatibility_model.py # Keras DNN — match probability
-│   ├── traction_model.py      # Keras regression — traction score 0–100
-│   ├── sector_model.py        # Node2Vec + SVD — sector similarity
-│   ├── history_model.py       # Bidirectional LSTM — next-sector prediction
-│   └── suggestion_engine.py   # Autoencoder + KMeans — novel suggestions
-├── api/
-│   └── main.py                # FastAPI backend (all endpoints)
+│   ├── compatibility_model.py # Keras DNN - match probability
+│   ├── traction_model.py      # Keras regression - traction score 0-100
+│   ├── sector_model.py        # Node2Vec + SVD - sector similarity
+│   ├── history_model.py       # Bidirectional LSTM - next-sector prediction
+│   └── suggestion_engine.py   # Autoencoder + KMeans - novel suggestions
 └── frontend/
     └── index.html             # Full dashboard UI
 ```
@@ -31,7 +38,7 @@ investmatch_pro/
 pip install -r requirements.txt
 
 # 2. Run the server (from project root)
-uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 # 3. Open browser
 http://localhost:8000
@@ -41,46 +48,51 @@ http://localhost:8000
 
 ## API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/investors` | List all investors |
-| GET | `/api/startups` | List all startups with traction scores |
-| GET | `/api/sectors` | List sectors and stages |
-| POST | `/api/predict_compatibility` | Keras DNN match probability |
-| POST | `/api/predict_traction` | Keras regression traction score |
-| POST | `/api/sector_similarity` | Node2Vec sector similarity |
-| POST | `/api/predict_next_sector` | BiLSTM next-sector prediction |
-| POST | `/api/suggest` | Autoencoder + KMeans suggestions |
-| GET | `/api/dashboard` | Platform-wide stats |
+| Method | Endpoint                     | Description                            |
+| ------ | ---------------------------- | -------------------------------------- |
+| GET    | `/api/investors`             | List all investors                     |
+| GET    | `/api/startups`              | List all startups with traction scores |
+| GET    | `/api/sectors`               | List sectors and stages                |
+| POST   | `/api/predict_compatibility` | Keras DNN match probability            |
+| POST   | `/api/predict_traction`      | Keras regression traction score        |
+| POST   | `/api/sector_similarity`     | Node2Vec sector similarity             |
+| POST   | `/api/predict_next_sector`   | BiLSTM next-sector prediction          |
+| POST   | `/api/suggest`               | Autoencoder + KMeans suggestions       |
+| GET    | `/api/dashboard`             | Platform-wide stats                    |
 
 ---
 
 ## Models
 
 ### 1. CompatibilityModel — `Keras DNN`
+
 - **Input**: 19 features (sector match, stage match, check fit, growth, runway, risk, MRR, etc.)
 - **Architecture**: Dense(128) → BatchNorm → Dropout → Dense(64) → Dense(32) → Sigmoid
 - **Loss**: BinaryCrossentropy | **Metric**: AUC-ROC
 - **Output**: match probability 0.0 – 1.0
 
 ### 2. TractionModel — `Keras Regression`
+
 - **Input**: 10 engineered features (burn multiple, capital efficiency, growth, retention, etc.)
 - **Architecture**: Dense(64) → LeakyReLU → Dense(32) → Dense(16) → Linear
 - **Loss**: Huber | **Metric**: MAE
 - **Output**: traction score 0 – 100
 
 ### 3. SectorCompatibilityModel — `Node2Vec + SVD`
+
 - **Input**: Investor co-preference graph (sectors as nodes, co-investments as edges)
 - **Method**: Node2Vec random walks → Word2Vec embeddings (falls back to SVD if node2vec not installed)
 - **Output**: cosine similarity between any two sectors
 
 ### 4. InvestmentHistoryModel — `Bidirectional LSTM`
+
 - **Input**: padded sequence of past sector investments (length 12)
 - **Architecture**: Embedding(32) → BiLSTM(64) → Dropout → Dense(64) → Softmax(10)
 - **Loss**: SparseCategoricalCrossentropy
 - **Output**: probability distribution over next sectors
 
 ### 5. SuggestionEngine — `Autoencoder + KMeans`
+
 - **Input**: TF-IDF text features + one-hot sector/stage + numeric profile
 - **Architecture**: Encoder Dense(64→32→16) → Decoder Dense(32→64→input)
 - **Clustering**: KMeans(k=6) on latent vectors
